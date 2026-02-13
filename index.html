@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Salary Breakdown Calculator</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>💵 Salary Breakdown Calculator</h1>
+        
+        <div class="tabs">
+            <button class="tab active" onclick="switchTab('basic')">Basic</button>
+            <button class="tab" onclick="switchTab('advanced')">Advanced</button>
+            <button class="tab" onclick="switchTab('compare')">Compare</button>
+        </div>
+
+        <div id="basic-tab" class="tab-content active">
+            <div class="input-section">
+                <div class="input-group">
+                    <label>CTC (Annual)</label>
+                    <input type="number" id="ctc" placeholder="Enter CTC">
+                </div>
+                <div class="input-group">
+                    <label>Tax %</label>
+                    <input type="number" id="tax" placeholder="Enter Tax %">
+                </div>
+                <div class="input-group">
+                    <label>Rent (Monthly)</label>
+                    <input type="number" id="rent" placeholder="Enter Rent">
+                </div>
+                <div class="input-group">
+                    <label>EMI (Monthly)</label>
+                    <input type="number" id="emi" placeholder="Enter EMI">
+                </div>
+                <div class="input-group">
+                    <label>Expenses (Monthly)</label>
+                    <input type="number" id="expenses" placeholder="Enter Expenses">
+                </div>
+                <button onclick="calculate()">Calculate</button>
+            </div>
+        </div>
+
+        <div id="advanced-tab" class="tab-content">
+            <div class="input-section">
+                <div class="input-group">
+                    <label>Investment (Monthly)</label>
+                    <input type="number" id="investment" placeholder="Enter Investment" value="0">
+                </div>
+                <div class="input-group">
+                    <label>Insurance (Monthly)</label>
+                    <input type="number" id="insurance" placeholder="Enter Insurance" value="0">
+                </div>
+                <div class="input-group">
+                    <label>Savings Goal (Monthly)</label>
+                    <input type="number" id="goal" placeholder="Enter Goal" value="0">
+                </div>
+                <div class="input-group">
+                    <label>Expected Return %</label>
+                    <input type="number" id="returnRate" placeholder="Annual Return %" value="12">
+                </div>
+                <div class="input-group">
+                    <label>Investment Period (Years)</label>
+                    <input type="number" id="years" placeholder="Years" value="10">
+                </div>
+            </div>
+        </div>
+
+        <div id="compare-tab" class="tab-content">
+            <div class="input-section">
+                <div class="input-group">
+                    <label>Scenario 2 - CTC</label>
+                    <input type="number" id="ctc2" placeholder="Enter CTC">
+                </div>
+                <div class="input-group">
+                    <label>Scenario 2 - Tax %</label>
+                    <input type="number" id="tax2" placeholder="Enter Tax %">
+                </div>
+                <div class="input-group">
+                    <label>Scenario 2 - Rent</label>
+                    <input type="number" id="rent2" placeholder="Enter Rent">
+                </div>
+                <button onclick="compareScenarios()">Compare Scenarios</button>
+            </div>
+        </div>
+
+        <div class="results" id="results">
+            <div class="action-buttons">
+                <button onclick="exportPDF()" class="btn-secondary">Export PDF</button>
+                <button onclick="saveData()" class="btn-secondary">Save Data</button>
+                <button onclick="resetAll()" class="btn-secondary">Reset</button>
+            </div>
+
+            <div class="savings-card">
+                <h2>Net Monthly Savings</h2>
+                <p class="savings-amount" id="savings">₹0</p>
+                <p class="savings-percent" id="savingsPercent">0% of income</p>
+            </div>
+
+            <div id="goalStatus" class="goal-status"></div>
+            <div id="investmentProjection" class="projection"></div>
+
+            <div class="breakdown">
+                <h3>Monthly Breakdown</h3>
+                <table>
+                    <tr>
+                        <td>Gross Monthly Salary</td>
+                        <td id="gross">₹0</td>
+                    </tr>
+                    <tr>
+                        <td>Tax Deduction</td>
+                        <td id="taxAmount">₹0</td>
+                    </tr>
+                    <tr>
+                        <td>In-hand Salary</td>
+                        <td id="inhand">₹0</td>
+                    </tr>
+                    <tr>
+                        <td>Rent</td>
+                        <td id="rentAmount">₹0</td>
+                    </tr>
+                    <tr>
+                        <td>EMI</td>
+                        <td id="emiAmount">₹0</td>
+                    </tr>
+                    <tr>
+                        <td>Expenses</td>
+                        <td id="expensesAmount">₹0</td>
+                    </tr>
+                    <tr id="investmentRow" style="display:none">
+                        <td>Investment</td>
+                        <td id="investmentAmount">₹0</td>
+                    </tr>
+                    <tr id="insuranceRow" style="display:none">
+                        <td>Insurance</td>
+                        <td id="insuranceAmount">₹0</td>
+                    </tr>
+                </table>
+            </div>
+
+            <div class="chart-container">
+                <canvas id="pieChart"></canvas>
+            </div>
+
+            <div id="comparisonResult" class="comparison"></div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
